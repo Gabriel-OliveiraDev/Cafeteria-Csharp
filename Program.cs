@@ -4,6 +4,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication("Identity.Login")
+    .AddCookie("Identity.Login", config =>
+    {
+        config.Cookie.Name = "Identity.Client";
+        config.LoginPath = "/Client";
+        config.AccessDeniedPath = "/Home";
+        config.ExpireTimeSpan = TimeSpan.FromHours(1);
+    });
+
+// Cafeteria DB Service.
 builder.Services.AddDbContext<CafeteriaContext>();
 
 var app = builder.Build();
@@ -21,6 +32,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -1,4 +1,6 @@
-﻿namespace Cafeteria.Models
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+
+namespace Cafeteria.Models
 {
     public class Client
     {

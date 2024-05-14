@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Cafeteria.Models
+﻿namespace Cafeteria.Models
 {
     public class Supplier
     {
