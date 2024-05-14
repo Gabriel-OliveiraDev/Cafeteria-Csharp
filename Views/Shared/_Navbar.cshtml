@@ -1,0 +1,43 @@
+﻿<nav class="mb-3 border-b bg-yellow-400 py-5 drop-shadow-md">
+    <div class="flex items-center justify-between px-4">
+        <!-- Logo -->
+        <a class="rounded-2xl bg-yellow-800 p-3 text-xl font-bold" asp-action="index">
+            <div class="text-white">Cafeteria</div>
+        </a>
+
+        <!-- �cone do menu para telas pequenas -->
+        <button class="block focus:outline-none lg:hidden" onclick="toggleMenu()">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+
+        <!-- Links da Navbar -->
+        <div class="hidden lg:flex lg:items-center lg:space-x-4">
+            <a asp-action="index" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
+                <div class="text-lg text-white">Home</div>
+            </a>
+            <a href="#" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
+                <div class="text-lg text-white">Sobre</div>
+            </a>
+            <a href="#" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
+                <div class="text-lg text-white">Contato</div>
+            </a>
+            <a href="#" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
+                <div class="text-lg text-white">Entrar</div>
+            </a>
+        </div>
+    </div>
+    <!-- Submenu para dispositivos m�veis -->
+    <div class="mt-5 border-t border-gray-200 bg-yellow-800 py-3 lg:hidden" id="mobileSubMenu" style="display: none;">
+        <a href="#" class="block px-4 py-3 hover:bg-yellow-700">
+            <div class="text-lg text-white">Inicio</div>
+        </a>
+        <a href="#" class="block px-4 py-3 hover:bg-yellow-700">
+            <div class="text-lg text-white"> Produtos</div>
+        </a>
+        <a href="#" class="block px-4 py-3 hover:bg-yellow-700">
+            <div class="text-lg text-white">Entrar</div>
+        </a>
+    </div>
+</nav>
