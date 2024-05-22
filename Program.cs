@@ -5,17 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAuthentication("Identity.Login")
-    .AddCookie("Identity.Login", config =>
-    {
-        config.Cookie.Name = "Identity.Client";
-        config.LoginPath = "/Client";
-        config.AccessDeniedPath = "/Home";
-        config.ExpireTimeSpan = TimeSpan.FromHours(1);
-    });
-
-// Cafeteria DB Service.
-builder.Services.AddDbContext<CafeteriaContext>();
+// Configure the DbContext with SQLite
+builder.Services.AddDbContext<CafeteriaContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("CafeteriaContext")));
 
 var app = builder.Build();
 
