@@ -1,0 +1,56 @@
+﻿@model Cafeteria.Models.Product
+
+@{
+    ViewData["Title"] = "Adicionando Produto";
+}
+
+<div class="my-10 flex items-center justify-center">
+    <div class="w-full max-w-lg rounded-lg bg-white p-8 shadow-md">
+        <h1 class="mb-4 text-center text-3xl font-bold text-gray-900">Create</h1>
+
+        <h4 class="mb-2 text-center text-lg font-semibold text-gray-900">Product</h4>
+        <hr class="mb-4">
+
+        <form asp-action="Create" class="mb-4">
+            <div asp-validation-summary="ModelOnly" class="mb-4 text-red-500"></div>
+            <div class="mb-4">
+                <label asp-for="Name" class="mb-2 block text-sm font-bold text-gray-700"></label>
+                <input asp-for="Name" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+                <span asp-validation-for="Name" class="text-xs italic text-red-500"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Description" class="mb-2 block text-sm font-bold text-gray-700"></label>
+                <input asp-for="Description" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+                <span asp-validation-for="Description" class="text-xs italic text-red-500"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Quantity" class="mb-2 block text-sm font-bold text-gray-700"></label>
+                <input asp-for="Quantity" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+                <span asp-validation-for="Quantity" class="text-xs italic text-red-500"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Price" class="mb-2 block text-sm font-bold text-gray-700"></label>
+                <input asp-for="Price" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+                <span asp-validation-for="Price" class="text-xs italic text-red-500"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="PriceTotal" class="mb-2 block text-sm font-bold text-gray-700"></label>
+                <input asp-for="PriceTotal" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+                <span asp-validation-for="PriceTotal" class="text-xs italic text-red-500"></span>
+            </div>
+            <div class="flex justify-center">
+                <input type="submit" value="Create" class="cursor-pointer rounded bg-yellow-400 px-4 py-2 font-bold text-white hover:bg-yellow-800 focus:outline-none focus:shadow-outline">
+            </div>
+        </form>
+
+        <div class="text-center">
+            <a asp-action="Index" class="text-yellow-400 hover:text-yellow-800">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
