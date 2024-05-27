@@ -1,4 +1,5 @@
-﻿namespace Cafeteria.Models
+﻿
+namespace Cafeteria.Models
 {
     public class Supplier
     {

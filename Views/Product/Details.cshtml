@@ -1,10 +1,17 @@
 ﻿@model Cafeteria.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    Layout = null;
 }
 
-<h1>Details</h1>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
 
 <div>
     <h4>Product</h4>
@@ -35,10 +42,10 @@
             @Html.DisplayFor(model => model.Price)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PriceTotal)
+            @Html.DisplayNameFor(model => model.SupplierId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PriceTotal)
+            @Html.DisplayFor(model => model.SupplierId)
         </dd>
     </dl>
 </div>
@@ -46,3 +53,5 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+</body>
+</html>

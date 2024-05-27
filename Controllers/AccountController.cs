@@ -11,23 +11,21 @@ namespace Cafeteria.Controllers
     {
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return Json(new { msg = "usuario encontrado!" });
-            }
-
-            return View();
+            // Verificando se há Usuário Autenticado. Se sim Redirecionando para a Página inicial, se não, para o Login
+            return User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : (IActionResult)RedirectToAction("SignIn", "Account");
         }
+
 
         public IActionResult Register()
         {
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Register(string email, string password, string name, bool isSupplier)
         {
-            using (SqliteConnection connection = new SqliteConnection("Data Source=CoffeDb.sqlite3"))
+            using (SqliteConnection connection = new("Data Source=CoffeDb.sqlite3"))
             {
                 await connection.OpenAsync();
 
@@ -35,7 +33,7 @@ namespace Cafeteria.Controllers
                     $"SELECT COUNT(*) FROM Supplier WHERE email = @Email" :
                     $"SELECT COUNT(*) FROM Client WHERE email = @Email";
 
-                using (SqliteCommand checkCommand = new SqliteCommand(checkQuery, connection))
+                using (SqliteCommand checkCommand = new(checkQuery, connection))
                 {
                     checkCommand.Parameters.AddWithValue("@Email", email);
                     var count = (long)await checkCommand.ExecuteScalarAsync();
@@ -47,10 +45,10 @@ namespace Cafeteria.Controllers
                 }
 
                 string insertQuery = isSupplier ?
-                    $"INSERT INTO Supplier (email, password, name) VALUES (@Email, @Password, @Name)" :
-                    $"INSERT INTO Client (email, password, name) VALUES (@Email, @Password, @Name)";
+                    $"INSERT INTO Supplier  (email, password, name) VALUES (@Email, @Password, @Name)" :
+                    $"INSERT INTO Client    (email, password, name) VALUES (@Email, @Password, @Name)" ;
 
-                using (SqliteCommand insertCommand = new SqliteCommand(insertQuery, connection))
+                using (SqliteCommand insertCommand = new(insertQuery, connection))
                 {
                     insertCommand.Parameters.AddWithValue("@Email", email);
                     insertCommand.Parameters.AddWithValue("@Password", password);
@@ -63,16 +61,21 @@ namespace Cafeteria.Controllers
             }
         }
 
+
         public async Task<IActionResult> SignIn(string email, string password)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             using (SqliteConnection connection = new SqliteConnection("Data Source=CoffeDb.sqlite3"))
             {
                 await connection.OpenAsync();
 
-                string query = $"SELECT id, name, email, password, null as role FROM Client WHERE email = '{email}' AND password = '{password}' UNION ALL " +
-                               $"SELECT id, name, email, password, 'Supplier' as role FROM Supplier WHERE email = '{email}' AND password = '{password}'";
+                string query =  $"SELECT id, name, email, password, null as role FROM Client WHERE email = '{email}' AND password = '{password}' UNION ALL " +
+                                $"SELECT id, name, email, password, 'Supplier' as role FROM Supplier WHERE email = '{email}' AND password = '{password}'";
 
-                using (SqliteCommand command = new SqliteCommand(query, connection))
+                using (SqliteCommand command = new(query, connection))
                 {
                     using (SqliteDataReader reader = await command.ExecuteReaderAsync())
                     {
@@ -113,7 +116,7 @@ namespace Cafeteria.Controllers
                 }
             }
 
-            return Json(new { msg = "Erro, verifique suas credenciais." });
+            return View();
         }
 
         public async Task<IActionResult> Logout()
@@ -122,7 +125,12 @@ namespace Cafeteria.Controllers
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
-            return RedirectToAction("Index", "Account");
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

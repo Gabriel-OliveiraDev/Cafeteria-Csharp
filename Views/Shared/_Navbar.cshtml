@@ -1,7 +1,7 @@
 ﻿<nav class="mb-3 border-b bg-yellow-400 py-5 drop-shadow-md">
     <div class="flex items-center justify-between px-4">
         <!-- Logo -->
-        <a class="rounded-2xl bg-yellow-800 p-3 text-xl font-bold" asp-controller="Home">
+        <a class="rounded-2xl bg-yellow-800 p-3 text-xl font-bold" asp-controller="Home" asp-action="Index">
             <div class="text-white">Cafeteria</div>
         </a>
 
@@ -14,7 +14,7 @@
 
         <!-- Links da Navbar -->
         <div class="hidden lg:flex lg:items-center lg:space-x-4">
-            <a asp-controller="Home" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
+            <a asp-controller="Home" asp-action="Index" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
                 <div class="text-lg text-white">Home</div>
             </a>
             <a href="#" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
@@ -23,9 +23,21 @@
             <a href="#" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
                 <div class="text-lg text-white">Contato</div>
             </a>
-            <a asp-controller="Login" asp-action="index" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
-                <div class="text-lg text-white">Entrar</div>
-            </a>
+            @{
+                if(User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account" asp-action="Logout" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
+                        <div class="text-lg text-white">Sair</div>
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="index" class="rounded-2xl bg-yellow-800 p-3 hover:text-gray-900">
+                        <div class="text-lg text-white">Entrar</div>
+                    </a>
+                }
+            }
+            
         </div>
     </div>
     <!-- Submenu para dispositivos m�veis -->
