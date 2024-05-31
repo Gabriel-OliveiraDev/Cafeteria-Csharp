@@ -1,8 +1,6 @@
 ﻿using Cafeteria.Contexts;
 using Cafeteria.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -23,6 +21,12 @@ namespace Cafeteria.Controllers
         // GET: ProductController
         public ActionResult Index()
         {
+            // Id do suppplier
+            if (!string.IsNullOrEmpty(GenIdSupplier()))
+            {
+                ViewBag.supplierId = Convert.ToInt32(GenIdSupplier());
+            }
+
             var products = _context.Product.ToList();
             return View(products);
         }
@@ -30,7 +34,8 @@ namespace Cafeteria.Controllers
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var products = _context.Product.Find(id);
+            return View(products);
         }
 
         // GET: ProductController/Create
@@ -51,7 +56,7 @@ namespace Cafeteria.Controllers
                 if (ModelState.IsValid)
                 {
                     // Puxando o ID do fornecedor do usuário autenticado
-                    var supplierId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    var supplierId = GenIdSupplier();
                     if (!string.IsNullOrEmpty(supplierId))
                     {
                         // Adicionar o ID do fornecedor ao produto antes de salvar
@@ -73,6 +78,7 @@ namespace Cafeteria.Controllers
             }
             return View(product);
         }
+
 
         // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
@@ -114,6 +120,12 @@ namespace Cafeteria.Controllers
             {
                 return View();
             }
+        }
+
+        // Método que retorna o Id do Supplier
+        private string GenIdSupplier()
+        {
+            return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
     }
 }

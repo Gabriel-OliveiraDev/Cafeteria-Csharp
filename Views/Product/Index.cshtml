@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<Cafeteria.Models.Product>
+@{
+    int? supplierId = ViewBag.supplierId;
+}
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -17,10 +20,7 @@
             </th>
             <th>
                 Price
-            </th>
-            <th>
-                SupplierId
-            </th>
+            </th
             <th></th>
         </tr>
     </thead>
@@ -41,12 +41,14 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SupplierId)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @{
+                        if (supplierId.Value == item.SupplierId)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                    }
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                 </td>
             </tr>
         }

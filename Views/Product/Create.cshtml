@@ -1,30 +1,29 @@
-﻿
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div class="form-group">
-                <label for="Name" class="control-label">Nome do Produto:</label>
-                <input for="Name" class="form-control" />
+﻿<div class="mt-10 flex justify-center">
+    <div class="w-full max-w-md">
+        <form asp-action="Create" class="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md">
+            <div class="mb-4">
+                <label for="Name" class="mb-2 block text-sm font-bold text-gray-700">Nome do Produto:</label>
+                <input id="Name" name="Name" type="text" class="form-input mt-1 block w-full rounded-md border-gray-300" />
             </div>
-            <div class="form-group">
-                <label for="Description" class="control-label">Descrição:</label>
-                <input for="Description" class="form-control" />
+            <div class="mb-4">
+                <label for="Description" class="mb-2 block text-sm font-bold text-gray-700">Descrição:</label>
+                <textarea id="Description" name="Description" class="form-input border-gray-30 mt-1 block w-full rounded-md" maxlength="100"> </textarea>
             </div>
-            <div class="form-group">
-                <label for="Quantity" class="control-label">Quantidade:</label>
-                <input for="Quantity" class="form-control" />
+            <div class="mb-4">
+                <label for="Quantity" class="mb-2 block text-sm font-bold text-gray-700">Quantidade:</label>
+                <input id="Quantity" name="Quantity" type="number" class="form-input mt-1 block w-full rounded-md border-gray-300" />
             </div>
-            <div class="form-group">
-                <label for="Price" class="control-label">Preço:</label>
-                <input for="Price" class="form-control" />
+            <div class="mb-4">
+                <label for="Price" class="mb-2 block text-sm font-bold text-gray-700">Preço:</label>
+                <input id="Price" name="Price" type="number" step="0.01" class="form-input mt-1 block w-full rounded-md border-gray-300" />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="flex justify-center">
+                <input type="submit" value="Create" class="cursor-pointer rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none focus:shadow-outline" />
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="text-center">
+    <a asp-action="Index" class="text-blue-500 hover:text-blue-700">Back to List</a>
 </div>
+
