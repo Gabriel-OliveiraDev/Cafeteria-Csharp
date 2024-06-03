@@ -123,9 +123,6 @@ namespace Cafeteria.Controllers
         }
 
         // Método que retorna o Id do Supplier
-        private string GenIdSupplier()
-        {
-            return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        }
+        private string? GenIdSupplier() => _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     }
 }

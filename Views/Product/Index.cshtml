@@ -3,54 +3,26 @@
     int? supplierId = ViewBag.supplierId;
 }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Quantity
-            </th>
-            <th>
-                Price
-            </th
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @{
-                        if (supplierId.Value == item.SupplierId)
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        }
+<div class="grid-cols-1 mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    @foreach (var item in Model)
+    {
+        <div class="rounded-lg bg-white p-6 shadow-md">
+            <h3 class="text-lg font-semibold text-gray-900">@item.Name</h3>
+            <p class="mb-4 text-gray-600">@item.Description</p>
+            <div class="flex items-center justify-between">
+                <p class="text-gray-700">Estoque: @item.Quantity</p>
+                <p class="text-gray-700">Preço: @item.Price</p>
+            </div>
+            <div class="mt-4">
+                @{
+                    if (supplierId.Value == item.SupplierId)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="mr-4 text-blue-500 hover:text-blue-700">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="text-red-500 hover:text-red-700">Delete</a>
                     }
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                }
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-yellow-500 hover:text-yellow-700">Details</a>
+            </div>
+        </div>
+    }
+</div>
